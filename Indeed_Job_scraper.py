@@ -29,7 +29,7 @@ for i in jobs:
     job_name = i.find('div', class_ = 'title').find('a')['title'].strip('\n')
 
     #Getting the Company Names
-    company = i.find('div', class_ = 'sjcl').find('span', class_ = 'company').text.strip('\n')
+    company = i.find('div', class_ = 'sjcl').find('span', class_ = 'company').text.strip('\n').title()
 
     #Getting the Locations
     if i.find('div', class_ = 'sjcl').find('div', class_ = 'location') is None:
@@ -38,8 +38,10 @@ for i in jobs:
         location = i.find('div', class_ = 'sjcl').find('div', class_ = 'location').text.strip('\n')
 
     table.add_row([job_name, company, location])
+
     
 #Printing the final Table
+print('\n********** Job Details for \'{}\' at \'{}\' ***********'.format(skill.title(), place.title()))
 print(table)
 
 
