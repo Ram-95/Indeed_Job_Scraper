@@ -1,2 +1,3 @@
-# Indeed_Web_Scraper - Scrapes the Indian Website
-Given the Skill and the Location, this script will scrape the Indeed Indian website and present the matching job details.
+# Indeed_Web_Scraper
+
+Given the Skill and the Location, this script will scrape the Indeed Indian website(www.indeed.co.in) and ouputs the matching job details to the terminal.
