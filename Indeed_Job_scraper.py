@@ -5,6 +5,7 @@ import csv
 import requests
 import bs4 as bs
 from prettytable import PrettyTable
+import Slack_Push_Notification as Slack
 
 headers = {"User-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"}
 
@@ -29,8 +30,8 @@ with open(file_path, mode = 'w') as file:
     table = PrettyTable(['Job_Name', 'Company', 'Job_URL'])
 
     #Requesting and getting the webpage using requests
+    print('\nWeb Scraping in progress...')
     for page in range(no_of_pages):
-        print('Scraping from page = {}'.format(page*10))
         url = 'https://www.indeed.co.in/jobs?q=' + skill + '&l=' + place +'&start=' + str(page * 10) 
         response = requests.get(url, headers = headers)
         html = response.text
@@ -70,5 +71,7 @@ with open(file_path, mode = 'w') as file:
 print('\n********** Job Details for \'{}\' at \'{}\' ***********'.format(skill.title(), place.title()))
 print(table)
 '''
-print('\n\nData Written to \'{}\' Successfully.'.format(file_name))
+print('\nData Written to \'{}\' Successfully.\nLocation: {}'.format(file_name, file_path))
+Slack.slack_message(('\nData Written to \'{}\' Successfully.'.format(file_name)))
+
 
