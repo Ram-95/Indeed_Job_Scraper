@@ -17,7 +17,7 @@ no_of_pages = int(input('Enter the #pages to scrape: '))
 #Name of the CSV File
 file_name = skill.title() + '_' + place.title() + '_Jobs.csv'
 #Path of the CSV File
-file_path = 'C:\\Users\\shyam\\Desktop\\' + file_name
+file_path = 'C:' + file_name
 
 #Writing to the CSV File
 with open(file_path, mode = 'w') as file:
