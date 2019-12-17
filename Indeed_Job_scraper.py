@@ -17,17 +17,17 @@ no_of_pages = int(input('Enter the #pages to scrape: '))
 #Name of the CSV File
 file_name = skill.title() + '_' + place.title() + '_Jobs.csv'
 #Path of the CSV File
-file_path = 'C:' + file_name
+file_path = 'C:\\Users\\shyam\\Desktop\\' + file_name
 
 #Writing to the CSV File
 with open(file_path, mode = 'w') as file:
     writer = csv.writer(file, delimiter = ',', lineterminator = '\n')
 
     #Adding the Column Names to the CSV File
-    writer.writerow(['Job_Name', 'Company', 'Location', 'Apply_Link'])
+    writer.writerow(['Job_Name', 'Company', 'Location', 'Apply_Link', 'Posted_Date'])
 
     #Table to present the Job Details
-    table = PrettyTable(['Job_Name', 'Company', 'Job_URL'])
+    table = PrettyTable(['Job_Name', 'Company', 'Job_URL', 'time'])
 
     #Requesting and getting the webpage using requests
     print('\nWeb Scraping in progress...')
@@ -57,13 +57,24 @@ with open(file_path, mode = 'w') as file:
             #Getting the Link to Job
             job_base_link = 'https://www.indeed.co.in/viewjob?jk='
             job_url = job_base_link + i['id'].split('_')[1]
-                
-            
-            #Adding to the table row
-            table.add_row([job_name, company, job_url])
 
-            #Writing to CSV File
-            writer.writerow([job_name, company, location.title(), job_url])
+            time_period = i.find('div', class_= 'jobsearch-SerpJobCard-footer').find('span', class_= 'date').text
+            time = time_period.split(' ')[0]
+            if time == '30+':
+                continue
+            elif time in ('Just', 'Today'):
+                #Adding to the table row
+                table.add_row([job_name, company, job_url, time_period])
+
+                #Writing to CSV File
+                writer.writerow([job_name, company, location.title(), job_url, time_period])
+            
+            elif int(time) <= 10:
+                #Adding to the table row
+                table.add_row([job_name, company, job_url, time_period])
+
+                #Writing to CSV File
+                writer.writerow([job_name, company, location.title(), job_url, time_period])
 
 
 '''    
