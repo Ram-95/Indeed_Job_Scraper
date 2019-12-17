@@ -4,4 +4,4 @@
 
 2. The matched jobs are then written to a CSV file at the file path given by the User.
 
-3. The Details of Jobs such as Job Name, Company Name, Location, Link to the Job are shown in the CSV file.
+3. The Details of Jobs such as Job Name, Company Name, Location, Link to the Job, Date when the job was posted are shown in the CSV file.
