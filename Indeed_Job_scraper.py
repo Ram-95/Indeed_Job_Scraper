@@ -6,6 +6,7 @@ import requests
 import bs4 as bs
 from prettytable import PrettyTable
 import Slack_Push_Notification as Slack
+from datetime import datetime
 
 headers = {"User-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"}
 
@@ -14,8 +15,12 @@ skill = input('Enter your Skill: ').strip()
 place = input('Enter the location: ').strip()
 no_of_pages = int(input('Enter the #pages to scrape: '))
 
+#Getting the Timestamp
+timestamp = datetime.now().strftime("%m%d%Y,%H_%M_%S").replace(',','_')
+
+
 #Name of the CSV File
-file_name = skill.title() + '_' + place.title() + '_Jobs.csv'
+file_name = skill.title() + '_' + place.title() + '_Jobs_' + timestamp + '.csv'
 #Path of the CSV File
 file_path = 'C:\\Users\\shyam\\Desktop\\' + file_name
 
@@ -58,10 +63,12 @@ with open(file_path, mode = 'w') as file:
             job_base_link = 'https://www.indeed.co.in/viewjob?jk='
             job_url = job_base_link + i['id'].split('_')[1]
 
+            #Filtering out the jobs that were posted on or after 20 days
             time_period = i.find('div', class_= 'jobsearch-SerpJobCard-footer').find('span', class_= 'date').text
             time = time_period.split(' ')[0]
             if time == '30+':
                 continue
+
             elif time in ('Just', 'Today'):
                 #Adding to the table row
                 table.add_row([job_name, company, job_url, time_period])
@@ -69,7 +76,7 @@ with open(file_path, mode = 'w') as file:
                 #Writing to CSV File
                 writer.writerow([job_name, company, location.title(), job_url, time_period])
             
-            elif int(time) <= 10:
+            elif int(time) <= 15:
                 #Adding to the table row
                 table.add_row([job_name, company, job_url, time_period])
 
@@ -82,7 +89,7 @@ with open(file_path, mode = 'w') as file:
 print('\n********** Job Details for \'{}\' at \'{}\' ***********'.format(skill.title(), place.title()))
 print(table)
 '''
-print('\nData Written to \'{}\' Successfully.\nLocation: {}'.format(file_name, file_path))
+print('\nData Written to \'{}\' Successfully.\nFile Location: {}'.format(file_name, file_path))
 Slack.slack_message(('\nData Written to \'{}\' Successfully.'.format(file_name)))
 
 
