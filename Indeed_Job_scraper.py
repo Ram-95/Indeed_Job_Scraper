@@ -7,6 +7,7 @@ try:
     from prettytable import PrettyTable
     import Slack_Push_Notification as Slack
     from datetime import datetime
+    import os
 
     headers = {"User-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36"}
 
@@ -18,11 +19,17 @@ try:
     #Getting the Timestamp
     '''timestamp = datetime.now().strftime("%d%m%Y,%H_%M_%S").replace(',','_')'''
 
+    #Creating the Main Directory
+    main_dir = 'C:\\Users\\shyam\\Desktop\\Indeed\\'
+    if not os.path.exists(main_dir):
+        os.mkdir(main_dir)
+        print('Base Directory Created Successfully.')
+    
 
     #Name of the CSV File
     file_name = skill.title() + '_' + place.title() + '_Jobs.csv'
     #Path of the CSV File
-    file_path = 'C:\\Users\\shyam\\Desktop\\' + file_name
+    file_path = main_dir + file_name
 
     #Writing to the CSV File
     with open(file_path, mode = 'w') as file:
