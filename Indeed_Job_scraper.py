@@ -36,7 +36,7 @@ try:
         writer = csv.writer(file, delimiter = ',', lineterminator = '\n')
 
         #Adding the Column Names to the CSV File
-        writer.writerow(['Job_Name', 'Company', 'City', 'State', 'Apply_Link', 'Posted_Date'])
+        writer.writerow(['JOB_NAME', 'COMPANY', 'CITY', 'STATE', 'APPLY_LINK', 'POSTED_DATE'])
 
         #Table to present the Job Details
         table = PrettyTable(['Job_Name', 'Company', 'Job_URL', 'time'])
@@ -106,7 +106,7 @@ else:
     '''
     try:
         print('\nData Written to \'{}\' Successfully.\nFile Location: {}'.format(file_name, file_path))
-        Slack.slack_message(('\nData Written to \'{}\' Successfully.'.format(file_name)))
+        Slack.slack_message('\nData Written to \'{}\' Successfully.'.format(file_name), __file__)
     except Exception as e:
         print(f'EXCEPTION - SLACK MODULE: {e}')
     
