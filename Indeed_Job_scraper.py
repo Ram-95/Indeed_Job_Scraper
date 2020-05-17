@@ -36,7 +36,7 @@ with open(file_path, mode = 'w') as file:
     writer = csv.writer(file, delimiter = ',', lineterminator = '\n')
 
     #Adding the Column Names to the CSV File
-    writer.writerow(['JOB_NAME', 'COMPANY', 'CITY', 'STATE', 'APPLY_LINK', 'POSTED_DATE'])
+    writer.writerow(['JOB_NAME', 'COMPANY', 'CITY', 'STATE', 'POSTED_DATE (Days Ago)', 'APPLY_LINK'])
 
     #Table to present the Job Details
     table = PrettyTable(['Job_Name', 'Company', 'Job_URL', 'time'])
@@ -86,14 +86,14 @@ with open(file_path, mode = 'w') as file:
                 table.add_row([job_name, company, job_url, time_period])
 
                 #Writing to CSV File
-                writer.writerow([job_name, company, city.title(), state.title(), job_url, time_period])
+                writer.writerow([job_name, company, city.title(), state.title(), 0, job_url])
             
             elif int(time) <= 29:
                 #Adding to the table row
                 table.add_row([job_name, company, job_url, time_period])
 
                 #Writing to CSV File
-                writer.writerow([job_name, company, city.title(), state.title(), job_url, time_period])
+                writer.writerow([job_name, company, city.title(), state.title(), int(time), job_url])
 
 #except Exception as e:
 #    print(f'EXCEPTION: {e}')
