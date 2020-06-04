@@ -20,7 +20,7 @@ no_of_pages = int(input('Enter the #pages to scrape: '))
 '''timestamp = datetime.now().strftime("%d%m%Y,%H_%M_%S").replace(',','_')'''
 
 #Creating the Main Directory
-main_dir = 'C:\\Users\\home\\AppData\\Local\\Programs\\Python\\Python38-32\\Indeed_Job_Scraper\\'
+main_dir = 'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python38\\Indeed_Job_Scraper\\'
 if not os.path.exists(main_dir):
     os.mkdir(main_dir)
     print('Base Directory Created Successfully.')
